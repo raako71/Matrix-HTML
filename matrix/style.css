@@ -1,0 +1,15 @@
+/* Reset default margin and padding */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%; /* Ensure the body takes up the full height of the viewport */
+  overflow: hidden; /* Optionally, to prevent any scrollbars */
+  background: black;
+}
+
+/* Ensure canvas fills the entire viewport */
+canvas {
+  display: block; /* Remove any default inline styles */
+  width: 100%;
+  height: 100%;
+}

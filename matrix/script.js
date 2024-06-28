@@ -55,8 +55,8 @@ function rain() {
   const opacity = 0.05;
 
   // Spacing between glyphs
-  const hspace = 1.1;
-  const vspace = 1.3;
+  const hspace = 0.1
+  const vspace = .9;
   // Glyph dimensions
   const glyphW = fsize * hspace;
   const glyphH = fsize * vspace;
@@ -109,7 +109,7 @@ const color = (x, y) => {
  */
   
   const fps = 35;
-  const fpsInterval = 2000 / fps;
+  const fpsInterval = 5000 / fps;
   let then = Date.now();
   
   (loop = () => {
@@ -123,7 +123,7 @@ const color = (x, y) => {
 
     // Redraw background
     resetShadow();
-    ctx.fillStyle = `rgba(0, 0, 0, ${opacity})`;
+    ctx.fillStyle = `rgba(100, 100, 100, ${opacity})`;
     ctx.fillRect(0, 0, width, height);
 
     ctx.font = font;

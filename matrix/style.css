@@ -4,7 +4,7 @@ html, body {
   padding: 0;
   height: 100%; /* Ensure the body takes up the full height of the viewport */
   overflow: hidden; /* Optionally, to prevent any scrollbars */
-  background: black;
+  background: white;
 }
 
 /* Ensure canvas fills the entire viewport */

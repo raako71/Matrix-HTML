@@ -48,7 +48,7 @@ function rain() {
 
   const fsize = 10;
   const font = `${fsize}pt 'Hack', 'Ubuntu Light', monospace`;
-  const opacity = 0.1;
+  const opacity = 0.05;
 
   // Spacing between glyphs
   const hspace = 0.3;
@@ -68,18 +68,15 @@ function rain() {
   const colors = {
       base: ['#E6BF79', '#B6EBF7', 'rgb(214 214 214)', '#FFF9C2'],
       accent: ['rgb(255 244 145)', 'rgb(119 234 244)','rgb(106 251 181)'],
-	  cray: ['red', 'green','blue'],
     };
   
   const getRandomColor = () => {
     const rand = Math.random();
     if (rand < 0.71) {
       return colors.base[Math.floor(Math.random() * colors.base.length)];
-    } else if (rand < 0.995) {
+    } else {
       return colors.accent[Math.floor(Math.random() * colors.accent.length)];
-    } else{
-		  return colors.cray[Math.floor(Math.random() * colors.cray.length)];
-	  }
+    }
   };
 
   for (let i = 0; i < numDrops; i++) {

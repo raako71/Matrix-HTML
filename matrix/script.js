@@ -66,19 +66,16 @@ function rain() {
   const drops = [];
   const dropColors = [];
   const colors = {
-      blue: ['#E6BF79', '#B6EBF7', '#A4FEDB', '#91E1F3'],
-      yellow: ['#FFF9C2', '#FFF7AD', '#FFF599', '#66E9F4'],
-      grey: ['#E0E0E0', '#7FE8B5', '#A2C1DE', '#A3E6F5']
+      base: ['#E6BF79', '#B6EBF7', 'rgb(214 214 214)', '#FFF9C2'],
+      accent: ['rgb(255 244 145)', 'rgb(119 234 244)','rgb(106 251 181)'],
     };
   
   const getRandomColor = () => {
     const rand = Math.random();
-    if (rand < 0.6) {
-      return colors.blue[Math.floor(Math.random() * colors.blue.length)];
-    } else if (rand < 0.8) {
-      return colors.yellow[Math.floor(Math.random() * colors.yellow.length)];
+    if (rand < 0.71) {
+      return colors.base[Math.floor(Math.random() * colors.base.length)];
     } else {
-      return colors.grey[Math.floor(Math.random() * colors.grey.length)];
+      return colors.accent[Math.floor(Math.random() * colors.accent.length)];
     }
   };
 

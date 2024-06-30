@@ -41,11 +41,7 @@ function setUp() {
   window.innerHeight = height;
 }
 
-
-
-
 function rain() {
-	
   const width = window.innerWidth;
   const height = window.innerHeight;
   const alpha = "0123456789ｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜｦﾝ";
@@ -55,8 +51,8 @@ function rain() {
   const opacity = 0.05;
 
   // Spacing between glyphs
-  const hspace = 0.1
-  const vspace = .9;
+  const hspace = 0.3;
+  const vspace = 0.9;
   // Glyph dimensions
   const glyphW = fsize * hspace;
   const glyphH = fsize * vspace;
@@ -66,11 +62,30 @@ function rain() {
   // Unused (horizontal) canvas space
   const unused = width - numDrops * glyphW + fsize * (hspace - 1);
   
-  // Initialize raindrops
+  // Initialize raindrops and colors
   const drops = [];
+  const dropColors = [];
+  const colors = {
+      blue: ['#E6BF79', '#B6EBF7', '#A4FEDB', '#91E1F3'],
+      yellow: ['#FFF9C2', '#FFF7AD', '#FFF599', '#66E9F4'],
+      grey: ['#E0E0E0', '#7FE8B5', '#A2C1DE', '#A3E6F5']
+    };
+  
+  const getRandomColor = () => {
+    const rand = Math.random();
+    if (rand < 0.6) {
+      return colors.blue[Math.floor(Math.random() * colors.blue.length)];
+    } else if (rand < 0.8) {
+      return colors.yellow[Math.floor(Math.random() * colors.yellow.length)];
+    } else {
+      return colors.grey[Math.floor(Math.random() * colors.grey.length)];
+    }
+  };
+
   for (let i = 0; i < numDrops; i++) {
     const pos = randInt(0, height / glyphH) * glyphH;
     drops.push(-pos);
+    dropColors.push(getRandomColor()); // Assign a random color to each column
   }
 
   function resetShadow() {
@@ -78,36 +93,6 @@ function rain() {
     ctx.shadowBlur = 0;
   }
 
-const colors = {
-  blue: ['#EDFAFD', '#DAF5FB', '#C8F0F9', '#B6EBF7', '#A3E6F5', '#91E1F3'],
-  yellow: ['#FFFFFF', '#FFFDEB', '#FFFBD6', '#FFF9C2', '#FFF7AD', '#FFF599'],
-  grey: ['#FFFFFF', '#F5F5F5', '#EBEBEB', '#E0E0E0', '#D6D6D6']
-};
-
-const getRandomColor = () => {
-  const rand = Math.random();
-  if (rand < 0.6) {
-    return colors.blue[Math.floor(Math.random() * colors.blue.length)];
-  } else if (rand < 0.8) {
-    return colors.yellow[Math.floor(Math.random() * colors.yellow.length)];
-  } else {
-    return colors.grey[Math.floor(Math.random() * colors.grey.length)];
-  }
-};
-
-const color = (x, y) => {
-  return getRandomColor();
-};
-/*
-  const R = () => randInt(100, 250);
-  const color = (x, y) => {
-    const r = R() * y / height * 1.2 | 0;
-    const g = R() | 0;
-    const b = R() * ((height - y) * 2 / x) / (height/width) * 0.4 | 0;
-    return `rgb(${0}, ${g}, ${0})`;
-  };
- */
-  
   const fps = 35;
   const fpsInterval = 5000 / fps;
   let then = Date.now();
@@ -123,18 +108,18 @@ const color = (x, y) => {
 
     // Redraw background
     resetShadow();
-    ctx.fillStyle = `rgba(100, 100, 100, ${opacity})`;
+    ctx.fillStyle = `rgba(35, 35, 35, ${opacity})`; // Example: Blue background with opacity
     ctx.fillRect(0, 0, width, height);
 
     ctx.font = font;
 
-    drops.map((y, i) => {
+    drops.forEach((y, i) => {
       const index = Math.floor(Math.random() * alpha.length);
       const char = alpha.charAt(index);
       const x = unused / 2 + i * glyphW;
 
-      // Draw character
-      ctx.fillStyle = color(x, y);
+      // Draw character with the color for this column
+      ctx.fillStyle = dropColors[i];
       ctx.fillText(char, x, y);
 
       // Reset if raindrop is some distance past bottom of screen

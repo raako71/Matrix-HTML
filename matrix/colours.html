@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Color Squares</title>
+  <style>
+  body{
+  background-color:black;
+  }
+    #color-container {
+      display: flex;
+      flex-direction: column;
+    }
+    .color-group {
+      margin-bottom: 10px;
+    }
+    .color-square {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      margin-right: 5px;
+      position: relative;
+    }
+    .color-square:hover::after {
+      content: attr(data-color);
+      position: absolute;
+      top: -25px;
+      left: 0;
+      background: #000;
+      color: #fff;
+      padding: 2px 5px;
+      border-radius: 3px;
+      font-size: 10px;
+      white-space: nowrap;
+    }
+  </style>
+</head>
+<body>
+  <div id="color-container"></div>
+  <script>
+    const colors = {
+      blue: ['#E6BF79', '#B6EBF7', '#A4FEDB', '#91E1F3'],
+      yellow: ['#FFF9C2', '#FFF7AD', '#FFF599', '#66E9F4'],
+      grey: ['#E0E0E0', '#7FE8B5', '#A2C1DE', '#A3E6F5']
+    };
+
+    function displayColors() {
+      const container = document.getElementById('color-container');
+
+      Object.keys(colors).forEach(colorGroup => {
+        const groupDiv = document.createElement('div');
+        groupDiv.className = 'color-group';
+
+        colors[colorGroup].forEach(color => {
+          const colorDiv = document.createElement('div');
+          colorDiv.className = 'color-square';
+          colorDiv.style.backgroundColor = color;
+          colorDiv.setAttribute('data-color', color);
+          groupDiv.appendChild(colorDiv);
+        });
+
+        container.appendChild(groupDiv);
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', displayColors);
+  </script>
+</body>
+</html>
